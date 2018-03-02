@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <style>
+    
+    /*body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: auto;
+  position: relative;
+}*/
+.my-svg-container{
+ display: inline-block;
+ position: relative;
+ width: 50%;
+ padding-bottom: 60%; /* depends on svg ratio, for my zebra height/width = 1.2 so padding-bottom = 50% * 1.2 = 60% */
+ 
+ vertical-align: middle; /* top | middle | bottom ... do what you want */
+}
+
+
+.my-svg{ /* svg into : object, img or inline */
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* only required for <img /> */
+}
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+    .node {
+  border: solid 1px white;
+  font: 13px sans-serif;
+  line-height: 20px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 20px;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+    
+   .node:hover {
+       opacity: 1.0;
+       filter: alpha(opacity=100);
+    }
+
+
+    
+  #tooltip {
+    position: absolute;
+    width: 220px;
+    height: auto;
+    padding: 10px;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+  }
+
+  #tooltip.hidden {
+    display: none;
+  }
+
+  #tooltip p {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  div.tooltiptip { 
+    position: absolute;     
+    text-align: center;     
+    width: 60px;          
+    height: 20px;         
+    padding: 2px;       
+    font: 12px sans-serif;    
+    background: lightsteelblue; 
+    border: 0px;    
+    border-radius: 8px;     
+    pointer-events: none;     
+}
+     
+    path { 
+    stroke: black;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+  
+}
+
+.legend {
+    font-size: 10px;
+    font-weight: bold;
+    text-anchor: middle;
+}
+   form {
+  position: BLOCK;
+    
+ 
+}
+
+
+
+
+</style>
+</head>
+<body>
+  <div class ="container-fluid">
+    <div class ="row">
+      <div class="col-md-7 col-sm-7 col-centered" id ="container1">
+      <div class="panel panel-default">
+       <div class="panel-heading">
+                            <i class="fa fa-sitemap"></i> Treemap
+                            <div class="pull-right">
+                                <select id="selectbox" data-selected="">
+                                <option value="" selected="selected" disabled="disabled">Select a period</option>
+                                <option value="1">1 week</option>
+                                <option value="2">2 weeks</option>
+                                <option value="3">1 month</option>
+                          </select>
+                            </div>
+        </div>
+
+        <div class="panel-body">
+              <div id="part1"></div>
+        </div>
+        </div>
+
+      </div>
+       
+
+    </div>
+  <div class ="row">
+    <div class ="col-md-6 col-sm-6" >
+       <div class="panel panel-default">
+       <div class="panel-heading">
+                            <i class="fa fa-line-chart"></i> Line Chart 1
+                            <div class="pull-right">
+                               <select id="selectbox1" data-selected="">
+                              <option value="" selected="selected" disabled="disabled">Select a period</option>
+                              <option value="1">1 week</option>
+                              <option value="2">2 weeks</option>
+                              <option value="3">1 month</option>
+                        </select>
+                        <input type="button" name="button1" OnClick="reset()"value="Reset">
+ 
+                            </div>
+        </div>
+
+        <div class="panel-body">
+              <div id="area1"></div>
+        </div>
+      </div>
+   </div>
+    
+    <div class ="col-md-6 col-sm-6">
+      <div class="panel panel-default">
+       <div class="panel-heading">
+                            <i class="fa fa-line-chart"></i> Line Chart 2
+                            <div class="pull-right">
+                               <select id="selectbox2" data-selected="">
+                            <option value="" selected="selected" disabled="disabled">Select a period</option>
+                            <option value="1">1 week</option>
+                            <option value="2">2 weeks</option>
+                            <option value="3">1 month</option>
+                      </select>
+
+                      <select id="selectbox3" data-selected="">
+                            <option value="" selected="selected" disabled="disabled">Select a commodity</option>
+                            <option value="Petrole">Petrole</option>
+                            <option value="Euro">Euro</option>
+                            <option value="Or">Or</option>
+                            <option value="Gaz">Gaz</option>
+                            <option value="Livre">Livre</option>
+
+                      </select>
+
+        <input type="button" name="button2" OnClick="resetCommodity()" value="Reset"><br/>
+                            </div>
+                        </div>
+       <div class="panel-body">
+              <div id="area2"></div>
+        </div>
+
+      </div>
+      
+     </div>
+  </div>
+</div>
+  <!-- <div id="gif">
+  <img src="https://cdn-images-1.medium.com/max/800/1*mp3zkhfmt0uhaER41h323g.gif" rel:animated_src="./example1.gif"
+    width="960" height="360" rel:auto_play="1" rel:rubbable="1" />
+  </div> -->
+   
+        <!-- dropdown -->
+        
+
+        <!-- <div id="part2">
+        <select id="selectbox1" data-selected="">
+              <option value="" selected="selected" disabled="disabled">Select a period</option>
+              <option value="1">1 week</option>
+              <option value="2">2 weeks</option>
+              <option value="3">1 month</option>
+        </select>
+
+        <input type="button" name="button1" OnClick="reset()"value="Reset"> <br/>
+
+        </div> -->
+
+
+        <!-- <select id="selectbox2" data-selected="">
+              <option value="" selected="selected" disabled="disabled">Select a period</option>
+              <option value="1">1 week</option>
+              <option value="2">2 weeks</option>
+              <option value="3">1 month</option>
+        </select>
+
+        <select id="selectbox3" data-selected="">
+              <option value="" selected="selected" disabled="disabled">Select a commodity</option>
+              <option value="Petrole">Petrole</option>
+              <option value="Euro">Euro</option>
+              <option value="Or">Or</option>
+              <option value="Gaz">Gaz</option>
+              <option value="Livre">Livre</option>
+
+        </select>
+
+        <input type="button" name="button2" OnClick="resetCommodity()" value="Reset"><br/> -->
+
+
+
+  
+  
+  
+
+  <script>
+   //    The choice variable indicates the period we are woking with to retrive coin's variation, 7 for the last week, 15 last fifteen days and 30 for the last month, this variable will be refreshed via a button events 
+var choice=7; 
+var choice2=7;
+var choice3=7;
+// These two variables maintain the nodes-state     
+var choiceData= [];
+var Mycoins={};
+var MyLine=[];
+var hidecoin="";
+var hideProduct="";
+var svg2;
+var svg1;
+var svg3;
+var svg0;
+
+var layerColors = d3.scaleOrdinal(d3.schemeCategory10);
+
+// Define the div for the tooltip
+var divtooltip = d3.select("body").append("div") 
+    .attr("class", "tooltiptip")       
+    .style("opacity", 0);
+    
+ 
+  const margin = {top: 5, right: 0, bottom: 50, left: 0},
+      width = 720 - margin.left - margin.right,
+      height = 480 - margin.top - margin.bottom;
+
+      var div_w = d3.select("#container1").style("width").split("px").shift();
+      var div_h = d3.select("#container1").style("height").split("px").shift();
+
+  
+    var div = d3.select("#part1").append("div")
+    .style("position", "relative")
+    .style("width", (width/2 + margin.left + margin.right) + "px")
+    .style("height", (height/1.5 + margin.top + margin.bottom) + "px")
+    .style("left", margin.left + "px")
+    .style("top", margin.top + "px");
+   
+
+    
+
+  var mousemove = function(d) {
+  var xPosition = d3.event.pageX + 5;
+  var yPosition = d3.event.pageY + 5;
+  d3.select("#tooltip")
+    .style("left", xPosition + "px")
+    .style("top", yPosition + "px");
+  d3.select("#tooltip #heading")
+    .text(d.data.name + " " + d.data.capitalisation+"$" );
+  d3.select("#tooltip").classed("hidden", false);
+      
+};
+    var mouseout = function() {
+     
+  d3.select("#tooltip").classed("hidden", true);
+};
+  var coinclick=  function(d) { 
+     
+  hidecoin=d.data.name;
+                              
+  svg1.selectAll("*").remove(); 
+  svg2.selectAll("*").remove();
+  svg3.selectAll("*").remove();                          
+  drawit();
+  drawitCommedityNow();
+  Volatility()
+                               };
+    
+ 
+    
+
+    
+    
+const treemap = d3.treemap().size([width, height]);
+    
+
+    
+//This is just a worthless function :)//
+    
+ function SignIt(val){
+      if(val<0){
+        return "";
+         }
+      else {return"+";}
+      }
+    
+    
+ //  Refreshing the choice varibale value   
+
+ //  Refreshing the choice varibale value   
+   d3.select('#selectbox')
+      .on("change", function () {
+        var sect = document.getElementById("selectbox");
+        var section = sect.options[sect.selectedIndex].value;
+        if (section== "1") {choice=7;div.selectAll("*").remove(); ShowMap()}
+        if (section== "2") {choice=15;div.selectAll("*").remove(); ShowMap()}
+        if (section== "3") {choice=30;div.selectAll("*").remove(); ShowMap()}
+
+        });
+
+        d3.select('#selectbox1')
+        .on("change", function () {
+        var sect = document.getElementById("selectbox1");
+        var section = sect.options[sect.selectedIndex].value;
+        if(section== "1"){choice2=7;svg1.selectAll("*").remove(); drawit()}
+        if(section== "2"){choice2=15;svg1.selectAll("*").remove();drawit()}
+        if(section== "3"){choice2=30;svg1.selectAll("*").remove();drawit()}
+        //if(selectedRadio2== "Reset"){hidecoin="";svg1.selectAll("*").remove();drawit()}
+
+        });
+
+        d3.select('#selectbox2')
+        .on("change", function () {
+        var sect = document.getElementById("selectbox2");
+        var section = sect.options[sect.selectedIndex].value;
+        if(section== "1"){choice3=7;svg2.selectAll("*").remove();svg3.selectAll("*").remove(); drawitCommedityNow(); Volatility()}
+        if(section== "2"){choice3=15;svg2.selectAll("*").remove();svg3.selectAll("*").remove(); drawitCommedityNow();Volatility()}
+        if(section== "3"){choice3=30;svg2.selectAll("*").remove();svg3.selectAll("*").remove(); drawitCommedityNow();Volatility()}
+        //if(selectedRadio2== "Reset"){hidecoin="";svg1.selectAll("*").remove();drawit()}
+
+        });
+
+         d3.select('#selectbox3')
+        .on("change", function () {
+        var sect = document.getElementById("selectbox3");
+        var section = sect.options[sect.selectedIndex].value;
+          hideProduct=section;
+         svg2.selectAll("*").remove();svg3.selectAll("*").remove(); drawitCommedityNow();Volatility()
+
+        });
+
+  function reset(){
+    hidecoin="";
+    svg1.selectAll("*").remove();drawit();
+  }
+  function resetCommodity(){
+    hidecoin="";
+    hideProduct="";
+    svg2.selectAll("*").remove();
+    svg3.selectAll("*").remove();
+    drawitCommedityNow();
+    Volatility()
+  }
+/*  d3.selectAll("input").on("change", function change() {
+ 
+    var selectedRadio3 =d3.select('input[name=modecryptocom]:checked').attr('value');
+    if (selectedRadio3== "1W") {choice3=7;svg2.selectAll("*").remove(); drawitCommedityNow()}
+    if(selectedRadio3== "2W"){choice3=15;svg2.selectAll("*").remove();drawitCommedityNow()}
+    if(selectedRadio3== "1M"){choice3=30;svg2.selectAll("*").remove();drawitCommedityNow()}
+    if(selectedRadio3== "Reset"){hideProduct="";svg2.selectAll("*").remove();drawitCommedityNow()}
+  });*/
+    
+function ShowMap(dt) {
+  
+ // The main code to generate the map  
+    
+d3.csv("datav.csv", function(dt) {
+  
+ // Calculating the variation ratio for each crypto-coin
+  
+  variationBitcoin=d3.format(".2f")(100*(dt[dt.length-1-choice].Bitcoin-dt[dt.length-1].Bitcoin)/dt[dt.length-1-choice].Bitcoin)
+  
+  variationEthereum=d3.format(".2f")(100*(dt[dt.length-1-choice].Ethereum-dt[dt.length-1].Ethereum)/dt[dt.length-1-choice].Ethereum)
+  
+  variationRipple=d3.format(".2f")(100*(dt[dt.length-1-choice].Ripple-dt[dt.length-1].Ripple)/dt[dt.length-1-choice].Ripple)
+  
+  variationBitfinex=d3.format(".2f")(100*(dt[dt.length-1-choice].Bitfinex-dt[dt.length-1].Bitfinex)/dt[dt.length-1-choice].Bitfinex)
+  
+  variationCardano=d3.format(".2f")(100*(dt[dt.length-1-choice].Cardano-dt[dt.length-1].Cardano)/dt[dt.length-1-choice].Cardano)
+  
+  variationNEO=d3.format(".2f")(100*(dt[dt.length-1-choice].NEO-dt[dt.length-1].NEO)/dt[dt.length-1-choice].NEO)
+  
+  variationStellar=d3.format(".2f")(100*(dt[dt.length-1-choice].Stellar-dt[dt.length-1].Stellar)/dt[dt.length-1-choice].Stellar)
+  
+  variationLitecoin=d3.format(".2f")(100*(dt[dt.length-1-choice].Litecoin-dt[dt.length-1].Litecoin)/dt[dt.length-1-choice].Litecoin)
+  
+  variationEOS=d3.format(".2f")(100*(dt[dt.length-1-choice].EOS-dt[dt.length-1].EOS)/dt[dt.length-1-choice].EOS)
+  
+  variationNEM=d3.format(".2f")(100*(dt[dt.length-1-choice].NEM-dt[dt.length-1].NEM)/dt[dt.length-1-choice].NEM)
+  
+// This list helps us to remedy the synchronisation dilemma 
+   Mycoins = {"variationBitcoin": variationBitcoin, "variationEthereum": variationEthereum, "variationRipple":variationRipple,"variationBitfinex":variationBitfinex,"variationCardano":variationCardano,"variationNEO":variationNEO,"variationStellar":variationStellar,"variationLitecoin":variationLitecoin,"variationEOS":variationEOS,"variationNEM":variationNEM}
+
+
+  
+
+d3.json("data.json", function(error, data) {
+  if (error) throw error;
+
+  const root = d3.hierarchy(data, (d) => d.children)
+    .sum((d) => d.capitalisation);
+    
+  
+  const tree = treemap(root);
+
+  choiceData=data // Save the nodes state
+  const node = div.datum(root).selectAll(".node")
+      .data(tree.leaves())
+    .enter().append("div")
+      .attr("class", "node")
+      .style("left", (d) => d.x0/1.2+ "px")
+      .style("top", (d) => d.y0/1.2 + "px")
+      .style("width", (d) => Math.max(0, d.x1 - d.x0 - 1)/1.2 + "px")
+      .style("height", (d) => Math.max(0, d.y1 - d.y0  - 1)/1.2 + "px")
+      .style("background", function(d,i){ 
+         if(Mycoins["variation"+d.data.name]<0){
+         return "#C62828";} // red color
+        else {
+          return "#4CAF50"; // green color
+        }
+        
+      })
+      .text((d) => d.data.name+ "    " +SignIt(Mycoins["variation"+d.data.name])+Mycoins["variation"+d.data.name]+"%")
+  .on("mousemove",(d)=> mousemove(d))
+   .on("mouseout", mouseout)
+   .on("click",(d)=> coinclick(d))
+  ;
+ 
+}); // End Json
+    
+  
+  }); // End Csv
+      
+  const root = d3.hierarchy(choiceData, (d) => d.children)
+    .sum((d) => d.capitalisation);
+    
+  
+  const tree = treemap(root);
+
+  
+  const node = div.datum(root).selectAll(".node")
+      .data(tree.leaves())
+      .attr("class", "node")
+      .style("background", function(d,i){ 
+         if(Mycoins["variation"+d.data.name]<0){
+         return "#C62828";} // red color
+        else {
+          return "#1DE9B6"; // green color
+        }
+        
+      })
+   .text((d) => d.data.name+ "    " +SignIt(Mycoins["variation"+d.data.name])+Mycoins["variation"+d.data.name]+"%")
+   
+  ;
+
+ 
+   
+    } 
+    
+    
+        //----------------------------- Coin Lines ------------------
+    // Set the dimensions of the canvas / graph
+    
+   
+
+// Parse the date / time
+var parseDate = d3.timeParse("%d-%m-%Y");
+
+// Set the ranges
+var x = d3.scaleTime().range([0, width]);  
+var y = d3.scaleLinear().range([height, 0]);
+      // Adds the svg canvas
+var svg1 = d3.select("#area1")
+    .append("svg")
+     //.style("position", "relative")
+     .classed("svg-container", true) //container class to make it responsive
+        //.attr("width", width + margin.left + margin.right)
+        //.attr("height", height + margin.top + margin.bottom)
+       // .attr("left", margin.left+40 )
+       // .attr("top", margin.top )
+       //responsive SVG needs these 2 attributes and no width and height attr
+     .attr("preserveAspectRatio", "xMinYMin meet")
+     .attr("viewBox", "0 0 720 480")
+     //class to make it responsive
+     .classed("svg-content-responsive", true)
+          .append("g")
+          .attr("transform", 
+                "translate(" + margin.left+40 + "," + margin.top + ")");
+
+
+    function drawit(){
+
+// Get the data
+d3.csv("datav.csv", function(error, data) {
+  if (error) throw error;
+  
+ 
+ symbols=data.columns.splice(1,data.columns.length-6)
+ data=data.splice(data.length-choice2,data.length)
+
+  // format the data
+  data.forEach(function(d) {
+      d.Date = parseDate(d.Date);
+     
+  });
+
+  // Scale the range of the data
+  x.domain(d3.extent(data, function(d) { return d.Date; }));
+  y.domain([-100, d3.max(data, function(d) {
+    var MaxSymbols=0
+     for(j=0;j<symbols.length;j++){
+        if(symbols[j]==hidecoin || hidecoin==""){
+         
+    MaxSymbols=Math.max(+d[symbols[j]], MaxSymbols);   //
+     }
+        }
+  return MaxSymbols;
+  
+  })]); //Add something
+  
+  // Add the valueline path.
+  for(j=0;j<symbols.length;j++){
+    
+    if(symbols[j]==hidecoin || hidecoin==""){
+    var path = svg1.append("path")
+      .data([data])
+      .attr("class", "line")
+      .style("stroke",layerColors(j))
+      .attr("d", d3.line()
+            .curve(d3.curveCardinal)
+    .x(function(d,i) { 
+return x(d.Date); })
+    .y(function(d) {
+d[symbols[j]]=+d[symbols[j]]
+        return y(d[symbols[j]]); })
+           )
+      .attr("opacity",1)
+      .attr("id",symbols[j]+"svg1")
+      .on("mouseover", function(d) {  
+      var subcurr = d3.select(this).attr("id");
+      //var value = d3.select(this).attr("value");  
+            divtooltip.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+            divtooltip.html(subcurr.replace("svg1",""))
+                .style("left", (d3.event.pageX) + "px")   
+                .style("top", (d3.event.pageY - 28) + "px");  
+            })          
+        .on("mouseout", function(d) {   
+            divtooltip.transition()    
+                .duration(500)    
+                .style("opacity", 0); 
+        });
+
+         //add transition to first chart 
+
+      var totalLength = path.node().getTotalLength();
+
+      path
+        .attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", totalLength)
+        .transition() // Call Transition Method
+        .duration(2000) // Set Duration timing (ms)
+        .ease(d3.easeLinear) // Set Easing option
+        .attr("stroke-dashoffset", 0);
+  
+    legendSpace = width/symbols.length;
+    
+  
+   svg1.append("text")
+            .attr("x", (legendSpace/2)+j*legendSpace)  // space legend
+            .attr("y", height + (margin.bottom/2)+ 5)
+            .attr("class", "legend") 
+
+            .attr("name",symbols[j])   // style the legend
+            .style("fill",layerColors(j))
+            .on("click", function(){
+                 // Determine if current line is visible
+                 var commodity = d3.select(this).attr("name");
+                 var opacity   = d3.select("#"+commodity+"svg1").attr("opacity");
+                 
+                 if(opacity==1){
+                    console.log("-----------------");
+                    console.log(commodity);
+                    console.log(opacity);
+                    console.log("-----------------");
+                    d3.select("#"+commodity+"svg1").attr("opacity", 0).transition().duration(750);
+                    
+                 }
+
+                 if(opacity==0){
+                   
+                    console.log("-----------------");
+                    console.log(commodity);
+                    console.log(opacity);
+                    console.log("-----------------");
+                    d3.select("#"+commodity+"svg1").attr("opacity", 1).transition().duration(750);
+                 }
+
+              })
+            .text(symbols[j]);
+     
+  
+}}
+  // Add the X Axis
+  svg1.append("g")
+      .attr("transform", "translate(0," + height+ ")")
+      .call(d3.axisBottom(x));
+
+  // Add the Y Axis
+  svg1.append("g")
+      .call(d3.axisLeft(y));
+});
+  
+   
+}
+    
+    
+var x2 = d3.scaleTime().range([0, width]);  
+var y2 = d3.scaleLinear().range([height, 0]);
+    // Adds the svg canvas
+ svg2 = d3.select("#area2")
+    .append("svg")
+     .style("position", "relative")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .attr("left", margin.left+40 )
+        .attr("top", margin.top ) 
+    .append("g")
+        .attr("transform", 
+              "translate(" + margin.left+40 + "," + margin.top + ")")
+;
+    
+    function drawitCommedityNow(){
+// Get the data
+d3.csv("datav.csv", function(error, data) {
+  if (error) throw error;
+ symbols2=data.columns.splice(1,data.columns.length)
+ var g = svg2.append("g")
+          .attr("transform", "translate(0, 0)");
+ 
+  // format the data
+  data.forEach(function(d,i) {
+      d.Date = parseDate(d.Date);
+      //console.log(d[symbols2[i]])//
+      d[symbols2[i]]=+d[symbols2[i]];
+     
+  });
+  
+  legendSpace = width/symbols2.length;
+
+  // Scale the range of the data
+  x2.domain(d3.extent(data, function(d) { return d.Date; })); 
+  
+  y2.domain([0,d3.max(data, function(d) {
+    var MaxSymbols=0
+    
+     for(j=0;j<symbols2.length;j++){ //symbols 
+       var ItisIn=0;
+    for(t=0;t<symbols.length;t++){
+      if(symbols[j]!=hidecoin && symbols[t]==symbols2[j]) {ItisIn=1;}
+    }
+     if(ItisIn==0 &&(symbols2[j]==hidecoin|| hidecoin=="") || ItisIn==1 &&(symbols2[j]==hideProduct || hideProduct=="")){
+    
+    MaxSymbols=Math.max(+d[symbols2[j]], MaxSymbols+50); 
+     }
+        }
+  return MaxSymbols;
+  
+  })]);
+  
+   //Add something
+  // Add the valueline path.
+  for(j=0;j<symbols2.length;j++){
+    var ItisIn=0;
+
+    for(t=0;t<symbols.length;t++){
+      if(symbols[j]!=hidecoin && symbols[t]==symbols2[j]) {ItisIn=1;}
+    }
+   if(ItisIn==0 &&(symbols2[j]==hidecoin|| hidecoin=="") || ItisIn==1 &&(symbols2[j]==hideProduct || hideProduct==""))
+    {
+     
+
+       var line = d3.line()
+        .curve(d3.curveCardinal)
+        .x(function(d) { return x2(d.Date); })
+        .y(function(d) { return y2(d[symbols2[j]]); });
+   
+
+    var path= svg2.append("path")
+          .data([data])
+          .attr("class", "line")
+          .style("stroke",  layerColors(j))
+          .attr("d",line)
+          .attr("opacity",1)
+          .attr("id",symbols2[j])
+          .on("mouseover", function(d) {  
+      var subcurr = d3.select(this).attr("id");
+      //var value = d3.select(this).attr("value");  
+            divtooltip.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+            divtooltip.html(subcurr.replace("svg1",""))
+                .style("left", (d3.event.pageX) + "px")   
+                .style("top", (d3.event.pageY - 28) + "px");  
+            })          
+        .on("mouseout", function(d) {   
+            divtooltip.transition()    
+                .duration(500)    
+                .style("opacity", 0); 
+        });
+            //add transition to second chart 
+
+     
+  var totalLength = path.node().getTotalLength();
+      path
+        .attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", totalLength)
+        .transition() // Call Transition Method
+        .duration(2000) // Set Duration timing (ms)
+        .ease(d3.easeLinear) // Set Easing option
+        .attr("stroke-dashoffset", 0);
+
+        // console.log(j);
+
+       g.selectAll("circle").data(data).enter()
+        .append("circle")
+        .attr("cx", function(d) { return x2(d.Date); })
+        .attr("cy", function(d) { return y2(d[symbols2[j]]); })
+        .attr("r", function(d) { return 7; })
+        .style("fill", "#fcb0b5")
+        .on("mouseover",function(d){
+           
+
+          var  jj = indexJ(symbols2,hidecoin);
+
+          if(hidecoin===""){hidecoin="Bitcoin";}
+
+          d3.select(this).transition().duration(200).style("fill", "#d30715");
+          //console.log(d[symbols2[0]])
+           g.selectAll("#tooltip").data([d]).enter().append("text")
+            .attr("id", "tooltip")
+            .text(function(d) { return d[symbols2[jj]]+" $"; })
+            .attr("y", function(d) {return  y2(d[symbols2[jj]])})
+            .attr("x", function(d) { return x2(d.Date); })
+
+          g.selectAll("#tooltip_path").data([d]).enter().append("line")
+            .attr("id", "tooltip_path")
+            .attr("class", "line")
+            .attr("d", line)
+            .attr("id",jj)
+            .attr("x1", function(d) {return x2(d.Date)})
+            .attr("x2", function(d) {return x2(d.Date)})
+            .attr("y1",  height)
+            .attr("y2", function(d) {return y2(d[symbols2[jj]])})
+            .attr("stroke", "black")
+            .style("stroke-dasharray", ("3, 3"));
+        })
+        .on("mouseout", function(d) {
+          d3.select(this).transition().duration(500).style("fill", "#fcb0b5");
+          g.selectAll("#tooltip").remove();
+          g.selectAll("#tooltip_path").remove();
+        });
+     // Add the Legend
+     
+  svg2.select("path").selectAll("line")
+        .attr("stroke","#ff0037")
+        
+
+        svg2.append("text")
+            .attr("x", (legendSpace/2)+j*legendSpace)  // space legend
+            .attr("y", height + (margin.bottom/2)+ 5)
+            .attr("class", "legend") 
+            .attr("name",symbols2[j])   // style the legend
+            .style("fill",  layerColors(j))
+            .on("click", function(){
+                 // Determine if current line is visible
+                 var commodity = d3.select(this).attr("name");
+                 var opacity   = d3.select("#"+commodity).attr("opacity");
+                 
+                 if(opacity==1){
+                    console.log("-----------------");
+                    console.log(commodity);
+                    console.log(opacity);
+                    console.log("-----------------");
+                    d3.select("#"+commodity).attr("opacity", 0).transition().duration(750);
+                    
+                 }
+
+                 if(opacity==0){
+                   
+                    console.log("-----------------");
+                    console.log(commodity);
+                    console.log(opacity);
+                    console.log("-----------------");
+                    d3.select("#"+commodity).attr("opacity", 1).transition().duration(750);
+                 }
+
+              })
+            .text(symbols2[j]); 
+            }}
+       
+  // Add the X Axis
+  svg2.append("g")
+      .attr("transform", "translate(0," + height+ ")")
+      .call(d3.axisBottom(x2));
+
+  // Add the Y Axis
+  svg2.append("g")
+      .call(d3.axisLeft(y2));
+
+});
+}
+    
+
+  function  indexJ(arr1,vec){
+    for(i=0; i<arr1.length;i++){
+
+      if(arr1[i]==vec){
+        return i;
+      }
+    }
+  }
+
+  function position() {
+  this
+    .style("left", function(d) { return d.x + "%"; })
+    .style("top", function(d) { return d.y + "%"; })
+    .style("width", function(d) { return d.dx + "%"; })
+    .style("height", function(d) { return d.dy + "%"; });
+}
+
+ ShowMap()
+ drawit()
+ drawitCommedityNow()
+
+svg3 = d3.select("body")
+    .append("svg")
+     .style("position", "relative")
+        .attr("width", width + margin.left   +margin.right )
+        .attr("height", height + margin.top  +margin.bottom +100 )
+        .attr("left", margin.left+40 )
+        .attr("top", margin.top ) 
+        .append("g")
+        .attr("transform", 
+              "translate(" + margin.left+40 + "," + margin.top + ")")
+;
+
+  function Volatility(){
+    d3.csv("datav.csv", function(error, data) {
+  if (error) throw error;
+      
+   data=data.splice(data.length-choice3,data.length)
+  
+    var VolatilityCrypto="";
+    var VolatilityCom="";
+    var RentabilityCrypto="";
+    var RentabilityCom="";
+    var ExpectationCrypto="";
+    var ExpectationCom=""; 
+   
+    if(hidecoin!="" && hideProduct!=""){
+      ExpectationCrypto=0;
+      ExpectationCom=0;
+       data.forEach(function(d,i) {
+      ExpectationCrypto=+ExpectationCrypto+(+d[hidecoin])
+      ExpectationCom=+ExpectationCom+(+d[hideProduct])
+      
+      if(i==0){
+        RentabilityCrypto=(+d[hidecoin])
+                RentabilityCom=(+d[hideProduct])
+      }
+      if(i==choice3-1){RentabilityCrypto=d3.format(".2f")(100*((-RentabilityCrypto+(+d[hidecoin]))/RentabilityCrypto));
+                    
+                     RentabilityCom=d3.format(".2f")(100*((-RentabilityCom+(+d[hideProduct]))/RentabilityCom)); }
+  });
+      ExpectationCrypto=ExpectationCrypto/choice3;
+      VolatilityCom=ExpectationCom/choice3;
+      data.forEach(function(d,i) {
+      VolatilityCrypto=+Math.pow(ExpectationCrypto-(+d[hidecoin]),2)
+      VolatilityCom=+Math.pow(ExpectationCom-(+d[hideProduct]),2)
+  });
+      VolatilityCrypto=d3.format(".2f")(100*Math.sqrt(VolatilityCrypto/choice3)/ExpectationCrypto);
+      VolatilityCom=d3.format(".2f")(100*Math.sqrt(VolatilityCom/choice3)/ExpectationCom);
+      
+      
+     }
+      var translateIT=0;
+    
+     svg3.append("text")
+            .attr("x", 200+translateIT)  // space legend
+            .attr("y", 50)
+            .style("fill", d3.rgb("#602800"))
+            .text("%RSD : "+hidecoin+" "+VolatilityCrypto);
+     svg3.append("text")
+            .attr("x", 200+translateIT)  // space legend
+            .attr("y", 80)
+            .style("fill", d3.rgb("#602800"))
+            .text("%RSD : "+hideProduct+" "+VolatilityCom); 
+      svg3.append("text")
+            .attr("x", 200+translateIT)  // space legend
+            .attr("y", 110)
+            .style("fill", d3.rgb("#602800"))
+            .text("%Rentability: "+hidecoin+" "+RentabilityCrypto);
+     svg3.append("text")
+            .attr("x", 200+translateIT)  // space legend
+            .attr("y", 140)
+            .style("fill", d3.rgb("#602800"))
+            .text("%Rentability : "+hideProduct+" "+RentabilityCom); 
+     svg3.append("rect")
+                        .attr("x",function(){  
+                          if(VolatilityCrypto<0){
+                                  if(VolatilityCrypto<-100){      return 400+translateIT;  }
+               else {      return 400+(200-2*Math.abs(VolatilityCrypto))+translateIT;  }}
+                     else{ return 600+translateIT;}
+        
+               }
+               )
+             .attr("y",21)
+             .attr("width",0 )
+             .attr("height",25)
+             .style("fill","white")
+.transition()
+    .duration(2500)
+     .attr("width",function(){  
+                if(VolatilityCrypto<100){
+                    return 200*Math.abs(VolatilityCrypto)/100;}
+                     else{ return 200;}} 
+               )
+    .style("fill", function(){  
+               if(VolatilityCrypto<-100){ 
+                 return "#ff2848";}
+                else if(VolatilityCrypto<0){
+                    return "#ff7f81";}
+                    
+              else if(VolatilityCrypto<=100){ 
+                return "#28ff85";}
+              else{ return "#6cff28";}} 
+               )
+   ;
+      svg3.append("rect")
+             .attr("x",function(){  
+                          if(VolatilityCom<0){
+                                  if(VolatilityCom<-100){      return 400+translateIT;  }
+               else {      return 400+(200-2*Math.abs(VolatilityCom))+translateIT;  }}
+                     else{ return 600+translateIT;}
+        
+               }
+               )
+             .attr("y",51)
+             .attr("width",0)
+             .attr("height",25)
+             .style("fill","white")
+    .transition()
+    .duration(3000)
+      .attr("width",function(){ 
+               if(Math.abs(VolatilityCom)<100){
+                    return 200*Math.abs(VolatilityCom)/100;}
+                     else{ return 200;}} 
+               )
+    .style("fill", function(){  
+               if(VolatilityCom<-100){ 
+                 return "#ff2848";}
+                else if(VolatilityCom<0){
+                    return "#ff7f81";}
+                    
+              else if(VolatilityCom<=100){ 
+                return "#28ff85";}
+              else{ return "#6cff28";}} 
+               )
+   ;
+      svg3.append("rect")
+             .attr("x",function(){  
+             if(RentabilityCrypto<0){
+                                  if(RentabilityCrypto<-100){      return 400+translateIT;  }
+               else {      return 400+(200-2*Math.abs(RentabilityCrypto))+translateIT;  }}
+                     else{ return 600+translateIT;}
+               })
+             .attr("y",81)
+             .attr("width",0)
+             .attr("height",25)
+             .style("fill","white")
+
+      
+       .transition()
+    .duration(3500)
+      .attr("width",function(){ 
+               if(Math.abs(RentabilityCrypto<100)){
+                    return 200*Math.abs(RentabilityCrypto)/100;}
+                     else{ return 200;}} 
+               )
+    .style("fill", function(){  
+               if(RentabilityCrypto<-100){ 
+                 return "#ff2848";}
+                else if(RentabilityCrypto<0){
+                    return "#ff7f81";}
+                    
+              else if(RentabilityCrypto<=100){ 
+                return "#28ff85";}
+              else{ return "#6cff28";}} 
+               )
+   ;
+    
+       svg3.append("rect")
+            .attr("x",function(){  
+             if(RentabilityCom<0){
+              if(RentabilityCom<-100){      return 400+translateIT;  }
+               else {      return 400+(200-2*Math.abs(RentabilityCom))+translateIT;  }
+             }
+             else{ return 600+translateIT;}} 
+               )
+             .attr("y",111)
+             .attr("width",0)
+             .attr("height",25)
+             .style("fill","White")
+   
+       .transition()
+    .duration(4000)
+     .attr("width",function(){ 
+               if(Math.abs(RentabilityCom)<100){
+                    return 200*Math.abs(RentabilityCom)/100;}
+                     else{ return 200;}} 
+               )
+    .style("fill", function(){  
+               if(RentabilityCom<-100){ 
+                 return "#ff2848";}
+                else if(RentabilityCom<0){
+                    return "#ff7f81";}
+                    
+              else if(RentabilityCom<=100){ 
+                return "#28ff85";}
+              else{ return "#6cff28";}} 
+               )
+   ;
+     });  
+  
+  }
+Volatility()
+
+ 
+  </script>
+  <div id="tooltip" class="hidden">
+  <p><strong id="heading"></strong></p>
+</div>
+</body>
+
