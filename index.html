@@ -632,7 +632,7 @@ d[symbols[j]]=+d[symbols[j]]
           //console.log(d[symbols2[0]])
            g.selectAll("#tooltip").data([d]).enter().append("text")
             .attr("id", "tooltip")
-            .text(function(d) { return d[symbols[jj]]+" $"; })
+            .text(function(d) { return d[symbols[jj]]+" %"; })
             .attr("y", function(d) {return  y(d[symbols[jj]])})
             .attr("x", function(d) { return x(d.Date); })
 
