@@ -10,7 +10,7 @@
   <style>
     
   body {
-  font-family: "PT Sans", sans-serif;
+  font-family: Arial;
   margin: 15px 50px 100px;
   position: relative;
   color:#212121;
@@ -37,6 +37,28 @@
 
 .page-header{
   border-bottom: 1px solid #fff
+
+}
+
+a{
+    text-decoration: none;
+    color:black;
+
+}
+a:hover {
+  text-decoration: none;
+  color: red;
+
+}
+
+.footer {
+  text-align: center;
+  background-color: white;
+  padding: 2rem;
+  color: black;
+  font-size: 20px;
+  margin-top: 70px;
+  font-family: "PT Sans", sans-serif;
 
 }
 
@@ -154,10 +176,16 @@ select {
 <body>
   <div class ="container-fluid">
        <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Bithween Dashboard</h1>
-                </div>
-            </div>
+        <div class="col-sm-6">
+          <h1><i class="fa fa-bitcoin">ithween</i><p class="lead">A cryptocurrencies visualization platform</p></h1>
+        </div>
+        <div class="col-sm-6">
+        <div class="pull-right hidden-sm">    
+        <h1 style="margin-right:50px;margin-bottom:20px;"><img src="img/logo_ecl.png" alt="ECL logo" height="80" width="90"/></h1>
+       </div>
+    </div>
+  </div>
+  <hr style="border-bottom: 1px solid white;"/>
     <div class ="row">
       <div class="col-md-6 col-sm-6">
       <div class="panel panel-default">
@@ -259,6 +287,14 @@ select {
 
 </div>
 
+  <footer class="footer">This dashborad is brought to you by:<br/> 
+    <a href="https://github.com/electronpower" target="_blank"class="link link--dark" style="font-style:italic;">Khalid Qaceme</a>,
+    <a href="https://github.com/mnemonico" target="_blank"class="link link--dark" style="font-style:italic;">Mohamed Achraf Baiz</a>,
+    <a href="https://github.com/ikbale" target="_blank"class="link link--dark" style="font-style:italic;">Ikbale Maghraoui</a>
+    and <a href="https://github.com/OussamaHOURIRA" target="_blank"class="link link--dark" style="font-style:italic;">Oussama Hourira</a>.
+    <hr/> Don't hesitate to have a look at this project's source code <a href="https://github.com/OussamaHOURIRA/OussamaHOURIRA.github.io" target="_blank"class="link link--dark"><i class="fa fa-github"></i></a><br>
+    And for more details on our project's idea, please refer to this link <a href="https://github.com/OussamaHOURIRA/BithWeen" target="_blank"><i class="fa fa-github"></i></a>
+  </footer>
 
 
   
