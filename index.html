@@ -530,7 +530,7 @@ var svg1 = d3.select("#area1")
     function drawit(){
 
 // Get the data
-d3.csv("datav.csv", function(error, data) {
+d3.csv("datavr.csv", function(error, data) {
   if (error) throw error;
   var g = svg1.append("g")
           .attr("transform", "translate(0, 0)");
@@ -546,7 +546,7 @@ d3.csv("datav.csv", function(error, data) {
 
   // Scale the range of the data
   x.domain(d3.extent(data, function(d) { return d.Date; }));
-  y.domain([0, d3.max(data, function(d) {
+  y.domain([-15, d3.max(data, function(d) {
     var MaxSymbols=0
      for(j=0;j<symbols.length;j++){
         if(symbols[j]==hidecoin || hidecoin==""){
