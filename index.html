@@ -727,7 +727,7 @@ d[symbols[j]]=+d[symbols[j]]
   svg1.append("g")
       .attr("transform", "translate(0," +height+ ")")
       .attr("class", "grid")
-      .call(d3.axisBottom(x).ticks(10).tickSize(-height));
+      .call(d3.axisBottom(x));
 
   // Add the Y Axis
   svg1.append("g")
