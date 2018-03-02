@@ -9,11 +9,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <style>
     
-    /*body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: auto;
+  body {
+  font-family: "PT Sans", sans-serif;
+  margin: 15px 50px 100px;
   position: relative;
-}*/
+  color:#212121;
+  background-color: #EEEEEE
+  }
+
 .my-svg-container{
  display: inline-block;
  position: relative;
@@ -31,9 +34,29 @@
   left: 0;
   width: 100%; /* only required for <img /> */
 }
-.col-centered{
-    float: none;
-    margin: 0 auto;
+
+.page-header{
+  border-bottom: 1px solid #fff
+
+}
+
+select {
+  -webkit-appearance: none;
+  background: url(img/select.png) no-repeat 95% center;
+  padding:1px 30px 8px 8px;
+  border-radius: 7px;
+  border-style: none;
+}
+
+.bouton{
+    background-color: #E53935; 
+    padding: 4px 10px;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+
 }
     .node {
   border: solid 1px white;
@@ -55,7 +78,7 @@
     
   #tooltip {
     position: absolute;
-    width: 220px;
+    width: auto;
     height: auto;
     padding: 10px;
     background-color: white;
@@ -125,14 +148,19 @@
 </head>
 <body>
   <div class ="container-fluid">
+       <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Bithween Dashboard</h1>
+                </div>
+            </div>
     <div class ="row">
-      <div class="col-md-7 col-sm-7 col-centered" id ="container1">
+      <div class="col-md-6 col-sm-6">
       <div class="panel panel-default">
        <div class="panel-heading">
-                            <i class="fa fa-sitemap"></i> Treemap
+                            <i class="fa fa-sitemap"></i> 
                             <div class="pull-right">
                                 <select id="selectbox" data-selected="">
-                                <option value="" selected="selected" disabled="disabled">Select a period</option>
+                                <option value="" selected="selected" disabled="disabled">Timespan</option>
                                 <option value="1">1 week</option>
                                 <option value="2">2 weeks</option>
                                 <option value="3">1 month</option>
@@ -146,22 +174,18 @@
         </div>
 
       </div>
-       
-
-    </div>
-  <div class ="row">
     <div class ="col-md-6 col-sm-6" >
        <div class="panel panel-default">
        <div class="panel-heading">
-                            <i class="fa fa-line-chart"></i> Line Chart 1
+                            <i class="fa fa-line-chart"></i> 
                             <div class="pull-right">
                                <select id="selectbox1" data-selected="">
-                              <option value="" selected="selected" disabled="disabled">Select a period</option>
+                              <option value="" selected="selected" disabled="disabled">Timespan</option>
                               <option value="1">1 week</option>
                               <option value="2">2 weeks</option>
                               <option value="3">1 month</option>
                         </select>
-                        <input type="button" name="button1" OnClick="reset()"value="Reset">
+                        <input type="button" class="bouton" OnClick="reset()"value="Reset">
  
                             </div>
         </div>
@@ -171,21 +195,37 @@
         </div>
       </div>
    </div>
-    
+    </div>
+   
+
+  <div class ="row">    
+
+       <div class="col-md-6 col-sm-6" id ="container1">
+      <div class="panel panel-default">
+       <div class="panel-heading">
+        <i class="fa fa-bar-chart"></i>
+        </div>
+
+        <div class="panel-body">
+              <div id="area3"></div>
+        </div>
+        </div>
+
+      </div>
     <div class ="col-md-6 col-sm-6">
       <div class="panel panel-default">
        <div class="panel-heading">
-                            <i class="fa fa-line-chart"></i> Line Chart 2
+                            <i class="fa fa-line-chart"></i>  
                             <div class="pull-right">
                                <select id="selectbox2" data-selected="">
-                            <option value="" selected="selected" disabled="disabled">Select a period</option>
+                            <option value="" selected="selected" disabled="disabled">Timespan</option>
                             <option value="1">1 week</option>
                             <option value="2">2 weeks</option>
                             <option value="3">1 month</option>
                       </select>
 
                       <select id="selectbox3" data-selected="">
-                            <option value="" selected="selected" disabled="disabled">Select a commodity</option>
+                            <option value="" selected="selected" disabled="disabled">Commodity</option>
                             <option value="Petrole">Petrole</option>
                             <option value="Euro">Euro</option>
                             <option value="Or">Or</option>
@@ -194,7 +234,7 @@
 
                       </select>
 
-        <input type="button" name="button2" OnClick="resetCommodity()" value="Reset"><br/>
+        <input type="button" class="bouton" OnClick="resetCommodity()" value="Reset"><br/>
                             </div>
                         </div>
        <div class="panel-body">
@@ -204,47 +244,14 @@
       </div>
       
      </div>
+
+  
   </div>
+      
+       
+
 </div>
-  <!-- <div id="gif">
-  <img src="https://cdn-images-1.medium.com/max/800/1*mp3zkhfmt0uhaER41h323g.gif" rel:animated_src="./example1.gif"
-    width="960" height="360" rel:auto_play="1" rel:rubbable="1" />
-  </div> -->
-   
-        <!-- dropdown -->
-        
-
-        <!-- <div id="part2">
-        <select id="selectbox1" data-selected="">
-              <option value="" selected="selected" disabled="disabled">Select a period</option>
-              <option value="1">1 week</option>
-              <option value="2">2 weeks</option>
-              <option value="3">1 month</option>
-        </select>
-
-        <input type="button" name="button1" OnClick="reset()"value="Reset"> <br/>
-
-        </div> -->
-
-
-        <!-- <select id="selectbox2" data-selected="">
-              <option value="" selected="selected" disabled="disabled">Select a period</option>
-              <option value="1">1 week</option>
-              <option value="2">2 weeks</option>
-              <option value="3">1 month</option>
-        </select>
-
-        <select id="selectbox3" data-selected="">
-              <option value="" selected="selected" disabled="disabled">Select a commodity</option>
-              <option value="Petrole">Petrole</option>
-              <option value="Euro">Euro</option>
-              <option value="Or">Or</option>
-              <option value="Gaz">Gaz</option>
-              <option value="Livre">Livre</option>
-
-        </select>
-
-        <input type="button" name="button2" OnClick="resetCommodity()" value="Reset"><br/> -->
+ 
 
 
 
@@ -266,10 +273,7 @@ var hideProduct="";
 var svg2;
 var svg1;
 var svg3;
-var svg0;
-
 var layerColors = d3.scaleOrdinal(d3.schemeCategory10);
-
 // Define the div for the tooltip
 var divtooltip = d3.select("body").append("div") 
     .attr("class", "tooltiptip")       
@@ -277,7 +281,7 @@ var divtooltip = d3.select("body").append("div")
     
  
   const margin = {top: 5, right: 0, bottom: 50, left: 0},
-      width = 720 - margin.left - margin.right,
+      width = 800 - margin.left - margin.right,
       height = 480 - margin.top - margin.bottom;
 
       var div_w = d3.select("#container1").style("width").split("px").shift();
@@ -286,22 +290,20 @@ var divtooltip = d3.select("body").append("div")
   
     var div = d3.select("#part1").append("div")
     .style("position", "relative")
-    .style("width", (width/2 + margin.left + margin.right) + "px")
-    .style("height", (height/1.5 + margin.top + margin.bottom) + "px")
+    .style("width","880px")
+    .style("height","310px")
     .style("left", margin.left + "px")
     .style("top", margin.top + "px");
-   
 
-    
 
   var mousemove = function(d) {
   var xPosition = d3.event.pageX + 5;
   var yPosition = d3.event.pageY + 5;
   d3.select("#tooltip")
-    .style("left", xPosition + "px")
-    .style("top", yPosition + "px");
+    .style("left", (xPosition-100) + "px")
+    .style("top", (yPosition)-70 + "px");
   d3.select("#tooltip #heading")
-    .text(d.data.name + " " + d.data.capitalisation+"$" );
+    .text(d.data.name + " " + d.data.capitalisation+" B$" );
   d3.select("#tooltip").classed("hidden", false);
       
 };
@@ -318,7 +320,7 @@ var divtooltip = d3.select("body").append("div")
   svg3.selectAll("*").remove();                          
   drawit();
   drawitCommedityNow();
-  Volatility()
+  Volatility();
                                };
     
  
@@ -396,15 +398,7 @@ const treemap = d3.treemap().size([width, height]);
     drawitCommedityNow();
     Volatility()
   }
-/*  d3.selectAll("input").on("change", function change() {
- 
-    var selectedRadio3 =d3.select('input[name=modecryptocom]:checked').attr('value');
-    if (selectedRadio3== "1W") {choice3=7;svg2.selectAll("*").remove(); drawitCommedityNow()}
-    if(selectedRadio3== "2W"){choice3=15;svg2.selectAll("*").remove();drawitCommedityNow()}
-    if(selectedRadio3== "1M"){choice3=30;svg2.selectAll("*").remove();drawitCommedityNow()}
-    if(selectedRadio3== "Reset"){hideProduct="";svg2.selectAll("*").remove();drawitCommedityNow()}
-  });*/
-    
+
 function ShowMap(dt) {
   
  // The main code to generate the map  
@@ -434,7 +428,7 @@ d3.csv("datav.csv", function(dt) {
   variationNEM=d3.format(".2f")(100*(dt[dt.length-1-choice].NEM-dt[dt.length-1].NEM)/dt[dt.length-1-choice].NEM)
   
 // This list helps us to remedy the synchronisation dilemma 
-   Mycoins = {"variationBitcoin": variationBitcoin, "variationEthereum": variationEthereum, "variationRipple":variationRipple,"variationBitfinex":variationBitfinex,"variationCardano":variationCardano,"variationNEO":variationNEO,"variationStellar":variationStellar,"variationLitecoin":variationLitecoin,"variationEOS":variationEOS,"variationNEM":variationNEM}
+   Mycoins = {"variationBitcoin": -variationBitcoin, "variationEthereum": -variationEthereum, "variationRipple":-variationRipple,"variationBitfinex":-variationBitfinex,"variationCardano":-variationCardano,"variationNEO":-variationNEO,"variationStellar":-variationStellar,"variationLitecoin":-variationLitecoin,"variationEOS":-variationEOS,"variationNEM":-variationNEM}
 
 
   
@@ -453,10 +447,10 @@ d3.json("data.json", function(error, data) {
       .data(tree.leaves())
     .enter().append("div")
       .attr("class", "node")
-      .style("left", (d) => d.x0/1.2+ "px")
-      .style("top", (d) => d.y0/1.2 + "px")
-      .style("width", (d) => Math.max(0, d.x1 - d.x0 - 1)/1.2 + "px")
-      .style("height", (d) => Math.max(0, d.y1 - d.y0  - 1)/1.2 + "px")
+      .style("left", (d) => d.x0/1.4 + "px")
+      .style("top", (d) => d.y0/1.4 + "px")
+      .style("width", (d) => Math.max(0, d.x1/1.4 - d.x0/1.4 - 1) + "px")
+      .style("height", (d) => Math.max(0, d.y1/1.4 - d.y0/1.4  - 1) + "px")
       .style("background", function(d,i){ 
          if(Mycoins["variation"+d.data.name]<0){
          return "#C62828";} // red color
@@ -525,7 +519,7 @@ var svg1 = d3.select("#area1")
        // .attr("top", margin.top )
        //responsive SVG needs these 2 attributes and no width and height attr
      .attr("preserveAspectRatio", "xMinYMin meet")
-     .attr("viewBox", "0 0 720 480")
+     .attr("viewBox", "0 0 880 480")
      //class to make it responsive
      .classed("svg-content-responsive", true)
           .append("g")
@@ -538,7 +532,8 @@ var svg1 = d3.select("#area1")
 // Get the data
 d3.csv("datav.csv", function(error, data) {
   if (error) throw error;
-  
+  var g = svg1.append("g")
+          .attr("transform", "translate(0, 0)");
  
  symbols=data.columns.splice(1,data.columns.length-6)
  data=data.splice(data.length-choice2,data.length)
@@ -551,7 +546,7 @@ d3.csv("datav.csv", function(error, data) {
 
   // Scale the range of the data
   x.domain(d3.extent(data, function(d) { return d.Date; }));
-  y.domain([-100, d3.max(data, function(d) {
+  y.domain([0, d3.max(data, function(d) {
     var MaxSymbols=0
      for(j=0;j<symbols.length;j++){
         if(symbols[j]==hidecoin || hidecoin==""){
@@ -588,7 +583,7 @@ d[symbols[j]]=+d[symbols[j]]
                 .duration(200)    
                 .style("opacity", .9);    
             divtooltip.html(subcurr.replace("svg1",""))
-                .style("left", (d3.event.pageX) + "px")   
+                .style("left", (d3.event.pageX - 50)  + "px")   
                 .style("top", (d3.event.pageY - 28) + "px");  
             })          
         .on("mouseout", function(d) {   
@@ -598,6 +593,10 @@ d[symbols[j]]=+d[symbols[j]]
         });
 
          //add transition to first chart 
+      var line = d3.line()
+        .curve(d3.curveCardinal)
+        .x(function(d) { return x(d.Date); })
+        .y(function(d) { return y(d[symbols[j]]); });
 
       var totalLength = path.node().getTotalLength();
 
@@ -611,12 +610,47 @@ d[symbols[j]]=+d[symbols[j]]
   
     legendSpace = width/symbols.length;
     
-  
+   g.selectAll("circle").data(data).enter()
+        .append("circle")
+        .attr("cx", function(d) { return x(d.Date); })
+        .attr("cy", function(d) { return y(d[symbols[j]]); })
+        .attr("r", function(d) { return 7; })
+        .style("fill", "#fcb0b5")
+        .on("mouseover",function(d){
+           
+
+          var  jj = indexJ(symbols,hidecoin);
+          if(hidecoin==""){hidecoin="Bitcoin";}
+          console.log(jj);
+          d3.select(this).transition().duration(200).style("fill", "#d30715");
+          //console.log(d[symbols2[0]])
+           g.selectAll("#tooltip").data([d]).enter().append("text")
+            .attr("id", "tooltip")
+            .text(function(d) { return d[symbols[jj]]+" $"; })
+            .attr("y", function(d) {return  y(d[symbols[jj]])})
+            .attr("x", function(d) { return x(d.Date); })
+
+          g.selectAll("#tooltip_path").data([d]).enter().append("line")
+            .attr("id", "tooltip_path")
+            .attr("class", "line")
+            .attr("d", line)
+            .attr("x1", function(d) {return x(d.Date)})
+            .attr("x2", function(d) {return x(d.Date)})
+            .attr("y1",  height)
+            .attr("y2", function(d) {return y(d[symbols[jj]])})
+            .attr("stroke", "black")
+            .style("stroke-dasharray", ("3, 3"));
+        })
+        .on("mouseout", function(d) {
+          d3.select(this).transition().duration(500).style("fill", "#fcb0b5");
+          g.selectAll("#tooltip").remove();
+          g.selectAll("#tooltip_path").remove();
+        });
+
    svg1.append("text")
             .attr("x", (legendSpace/2)+j*legendSpace)  // space legend
             .attr("y", height + (margin.bottom/2)+ 5)
             .attr("class", "legend") 
-
             .attr("name",symbols[j])   // style the legend
             .style("fill",layerColors(j))
             .on("click", function(){
@@ -666,15 +700,20 @@ var y2 = d3.scaleLinear().range([height, 0]);
     // Adds the svg canvas
  svg2 = d3.select("#area2")
     .append("svg")
-     .style("position", "relative")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .attr("left", margin.left+40 )
-        .attr("top", margin.top ) 
-    .append("g")
-        .attr("transform", 
-              "translate(" + margin.left+40 + "," + margin.top + ")")
-;
+     //.style("position", "relative")
+     .classed("svg-container", true) //container class to make it responsive
+        //.attr("width", width + margin.left + margin.right)
+        //.attr("height", height + margin.top + margin.bottom)
+       // .attr("left", margin.left+40 )
+       // .attr("top", margin.top )
+       //responsive SVG needs these 2 attributes and no width and height attr
+     .attr("preserveAspectRatio", "xMinYMin meet")
+     .attr("viewBox", "0 0 880 480")
+     //class to make it responsive
+     .classed("svg-content-responsive", true)
+          .append("g")
+          .attr("transform", 
+                "translate(" + margin.left+40 + "," + margin.top + ")");
     
     function drawitCommedityNow(){
 // Get the data
@@ -683,7 +722,6 @@ d3.csv("datav.csv", function(error, data) {
  symbols2=data.columns.splice(1,data.columns.length)
  var g = svg2.append("g")
           .attr("transform", "translate(0, 0)");
- 
   // format the data
   data.forEach(function(d,i) {
       d.Date = parseDate(d.Date);
@@ -703,9 +741,9 @@ d3.csv("datav.csv", function(error, data) {
      for(j=0;j<symbols2.length;j++){ //symbols 
        var ItisIn=0;
     for(t=0;t<symbols.length;t++){
-      if(symbols[j]!=hidecoin && symbols[t]==symbols2[j]) {ItisIn=1;}
+      if(symbols[t]!=hidecoin && symbols[t]==symbols2[j]) {ItisIn=1;}
     }
-     if(ItisIn==0 &&(symbols2[j]==hidecoin|| hidecoin=="") || ItisIn==1 &&(symbols2[j]==hideProduct || hideProduct=="")){
+      if((ItisIn==0 &&(symbols2[j]==hidecoin || hidecoin=="")||(symbols2[j]==hideProduct || hideProduct==""))){
     
     MaxSymbols=Math.max(+d[symbols2[j]], MaxSymbols+50); 
      }
@@ -720,9 +758,9 @@ d3.csv("datav.csv", function(error, data) {
     var ItisIn=0;
 
     for(t=0;t<symbols.length;t++){
-      if(symbols[j]!=hidecoin && symbols[t]==symbols2[j]) {ItisIn=1;}
+      if(symbols[t]!=hidecoin && symbols[t]==symbols2[j]) {ItisIn=1;}
     }
-   if(ItisIn==0 &&(symbols2[j]==hidecoin|| hidecoin=="") || ItisIn==1 &&(symbols2[j]==hideProduct || hideProduct==""))
+       if((ItisIn==0 &&(symbols2[j]==hidecoin || hidecoin=="")||(symbols2[j]==hideProduct || hideProduct=="")))
     {
      
 
@@ -740,20 +778,20 @@ d3.csv("datav.csv", function(error, data) {
           .attr("opacity",1)
           .attr("id",symbols2[j])
           .on("mouseover", function(d) {  
-      var subcurr = d3.select(this).attr("id");
-      //var value = d3.select(this).attr("value");  
-            divtooltip.transition()    
-                .duration(200)    
-                .style("opacity", .9);    
-            divtooltip.html(subcurr.replace("svg1",""))
-                .style("left", (d3.event.pageX) + "px")   
-                .style("top", (d3.event.pageY - 28) + "px");  
-            })          
-        .on("mouseout", function(d) {   
-            divtooltip.transition()    
-                .duration(500)    
-                .style("opacity", 0); 
-        });
+              var subcurr = d3.select(this).attr("id");
+              //var value = d3.select(this).attr("value");  
+                    divtooltip.transition()    
+                        .duration(200)    
+                        .style("opacity", .9);    
+                    divtooltip.html(subcurr)
+                        .style("left", (d3.event.pageX - 50)  + "px")   
+                        .style("top", (d3.event.pageY - 28) + "px");  
+                    })          
+                .on("mouseout", function(d) {   
+                    divtooltip.transition()    
+                        .duration(500)    
+                        .style("opacity", 0); 
+                });
             //add transition to second chart 
 
      
@@ -767,7 +805,7 @@ d3.csv("datav.csv", function(error, data) {
         .attr("stroke-dashoffset", 0);
 
         // console.log(j);
-
+        
        g.selectAll("circle").data(data).enter()
         .append("circle")
         .attr("cx", function(d) { return x2(d.Date); })
@@ -778,8 +816,7 @@ d3.csv("datav.csv", function(error, data) {
            
 
           var  jj = indexJ(symbols2,hidecoin);
-
-          if(hidecoin===""){hidecoin="Bitcoin";}
+          if(hidecoin==""){hidecoin="Bitcoin";}
 
           d3.select(this).transition().duration(200).style("fill", "#d30715");
           //console.log(d[symbols2[0]])
@@ -793,7 +830,6 @@ d3.csv("datav.csv", function(error, data) {
             .attr("id", "tooltip_path")
             .attr("class", "line")
             .attr("d", line)
-            .attr("id",jj)
             .attr("x1", function(d) {return x2(d.Date)})
             .attr("x2", function(d) {return x2(d.Date)})
             .attr("y1",  height)
@@ -867,30 +903,26 @@ d3.csv("datav.csv", function(error, data) {
     }
   }
 
-  function position() {
-  this
-    .style("left", function(d) { return d.x + "%"; })
-    .style("top", function(d) { return d.y + "%"; })
-    .style("width", function(d) { return d.dx + "%"; })
-    .style("height", function(d) { return d.dy + "%"; });
-}
-
  ShowMap()
  drawit()
  drawitCommedityNow()
 
-svg3 = d3.select("body")
+svg3 = d3.select("#area3")
     .append("svg")
-     .style("position", "relative")
-        .attr("width", width + margin.left   +margin.right )
-        .attr("height", height + margin.top  +margin.bottom +100 )
-        .attr("left", margin.left+40 )
-        .attr("top", margin.top ) 
-        .append("g")
-        .attr("transform", 
-              "translate(" + margin.left+40 + "," + margin.top + ")")
-;
-
+     //.style("position", "relative")
+     .classed("svg-container", true) //container class to make it responsive
+        //.attr("width", width + margin.left + margin.right)
+        //.attr("height", height + margin.top + margin.bottom)
+       // .attr("left", margin.left+40 )
+       // .attr("top", margin.top )
+       //responsive SVG needs these 2 attributes and no width and height attr
+     .attr("preserveAspectRatio", "xMinYMin meet")
+     .attr("viewBox", "0 0 880 480")
+     //class to make it responsive
+     .classed("svg-content-responsive", true)
+          .append("g")
+          .attr("transform", 
+                "translate(" + margin.left+40 + "," + margin.top + ")");
   function Volatility(){
     d3.csv("datav.csv", function(error, data) {
   if (error) throw error;
@@ -920,7 +952,7 @@ svg3 = d3.select("body")
                      RentabilityCom=d3.format(".2f")(100*((-RentabilityCom+(+d[hideProduct]))/RentabilityCom)); }
   });
       ExpectationCrypto=ExpectationCrypto/choice3;
-      VolatilityCom=ExpectationCom/choice3;
+      ExpectationCom=ExpectationCom/choice3;
       data.forEach(function(d,i) {
       VolatilityCrypto=+Math.pow(ExpectationCrypto-(+d[hidecoin]),2)
       VolatilityCom=+Math.pow(ExpectationCom-(+d[hideProduct]),2)
@@ -930,28 +962,29 @@ svg3 = d3.select("body")
       
       
      }
-      var translateIT=0;
+      var translateIT=-20;
+      var translateITY=100;
     
      svg3.append("text")
             .attr("x", 200+translateIT)  // space legend
-            .attr("y", 50)
+            .attr("y", 50+translateITY)
             .style("fill", d3.rgb("#602800"))
             .text("%RSD : "+hidecoin+" "+VolatilityCrypto);
      svg3.append("text")
             .attr("x", 200+translateIT)  // space legend
-            .attr("y", 80)
+            .attr("y", 80+translateITY)
             .style("fill", d3.rgb("#602800"))
             .text("%RSD : "+hideProduct+" "+VolatilityCom); 
       svg3.append("text")
             .attr("x", 200+translateIT)  // space legend
-            .attr("y", 110)
+            .attr("y", 140+translateITY)
             .style("fill", d3.rgb("#602800"))
-            .text("%Rentability: "+hidecoin+" "+RentabilityCrypto);
+            .text("%Profitability : "+hidecoin+" "+RentabilityCrypto);
      svg3.append("text")
             .attr("x", 200+translateIT)  // space legend
-            .attr("y", 140)
+            .attr("y", 170+translateITY)
             .style("fill", d3.rgb("#602800"))
-            .text("%Rentability : "+hideProduct+" "+RentabilityCom); 
+            .text("%Profitability : "+hideProduct+" "+RentabilityCom); 
      svg3.append("rect")
                         .attr("x",function(){  
                           if(VolatilityCrypto<0){
@@ -961,7 +994,7 @@ svg3 = d3.select("body")
         
                }
                )
-             .attr("y",21)
+             .attr("y",21+translateITY)
              .attr("width",0 )
              .attr("height",25)
              .style("fill","white")
@@ -974,13 +1007,13 @@ svg3 = d3.select("body")
                )
     .style("fill", function(){  
                if(VolatilityCrypto<-100){ 
-                 return "#ff2848";}
+                 return "#28ff85";}
                 else if(VolatilityCrypto<0){
-                    return "#ff7f81";}
+                    return "#6cff28";}
                     
               else if(VolatilityCrypto<=100){ 
-                return "#28ff85";}
-              else{ return "#6cff28";}} 
+                return "#ff2848";}
+              else{ return "#ff7f81";}} 
                )
    ;
       svg3.append("rect")
@@ -992,7 +1025,7 @@ svg3 = d3.select("body")
         
                }
                )
-             .attr("y",51)
+             .attr("y",51+translateITY)
              .attr("width",0)
              .attr("height",25)
              .style("fill","white")
@@ -1005,13 +1038,13 @@ svg3 = d3.select("body")
                )
     .style("fill", function(){  
                if(VolatilityCom<-100){ 
-                 return "#ff2848";}
+                 return "#28ff85";}
                 else if(VolatilityCom<0){
-                    return "#ff7f81";}
+                    return "#6cff28";}
                     
               else if(VolatilityCom<=100){ 
-                return "#28ff85";}
-              else{ return "#6cff28";}} 
+                return "#ff2848";}
+              else{ return "#ff7f81";}} 
                )
    ;
       svg3.append("rect")
@@ -1021,7 +1054,7 @@ svg3 = d3.select("body")
                else {      return 400+(200-2*Math.abs(RentabilityCrypto))+translateIT;  }}
                      else{ return 600+translateIT;}
                })
-             .attr("y",81)
+             .attr("y",111+translateITY)
              .attr("width",0)
              .attr("height",25)
              .style("fill","white")
@@ -1054,7 +1087,7 @@ svg3 = d3.select("body")
              }
              else{ return 600+translateIT;}} 
                )
-             .attr("y",111)
+             .attr("y",141+translateITY)
              .attr("width",0)
              .attr("height",25)
              .style("fill","White")
