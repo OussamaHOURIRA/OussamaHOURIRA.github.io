@@ -10,7 +10,7 @@
   <style>
     
   body {
-  font-family: Arial;
+  font-family: "PT Sans", sans-serif;
   margin: 15px 50px 100px;
   position: relative;
   color:#212121;
@@ -37,28 +37,6 @@
 
 .page-header{
   border-bottom: 1px solid #fff
-
-}
-
-a{
-    text-decoration: none;
-    color:black;
-
-}
-a:hover {
-  text-decoration: none;
-  color: red;
-
-}
-
-.footer {
-  text-align: center;
-  background-color: white;
-  padding: 2rem;
-  color: black;
-  font-size: 20px;
-  margin-top: 70px;
-  font-family: "PT Sans", sans-serif;
 
 }
 
@@ -172,20 +150,15 @@ select {
 
 
 </style>
+<title>Bithween</title>
 </head>
 <body>
   <div class ="container-fluid">
        <div class="row">
-        <div class="col-sm-6">
-          <h1><i class="fa fa-bitcoin">ithween</i><p class="lead">A cryptocurrencies visualization platform</p></h1>
-        </div>
-        <div class="col-sm-6">
-        <div class="pull-right hidden-sm">    
-        <h1 style="margin-right:50px;margin-bottom:20px;"><img src="img/logo_ecl.png" alt="ECL logo" height="80" width="90"/></h1>
-       </div>
-    </div>
-  </div>
-  <hr style="border-bottom: 1px solid white;"/>
+                <div class="col-lg-12">
+                    <h1 class="page-header">Bithween Dashboard</h1>
+                </div>
+            </div>
     <div class ="row">
       <div class="col-md-6 col-sm-6">
       <div class="panel panel-default">
@@ -207,7 +180,45 @@ select {
         </div>
 
       </div>
-     <div class ="col-md-6 col-sm-6">
+    <div class ="col-md-6 col-sm-6" >
+       <div class="panel panel-default">
+       <div class="panel-heading">
+                            <i class="fa fa-line-chart"></i> 
+                            <div class="pull-right">
+                               <select id="selectbox1" data-selected="">
+                              <option value="" selected="selected" disabled="disabled">Timespan</option>
+                              <option value="1">1 week</option>
+                              <option value="2">2 weeks</option>
+                              <option value="3">1 month</option>
+                        </select>
+                        <input type="button" class="bouton" OnClick="reset()"value="Reset">
+ 
+                            </div>
+        </div>
+
+        <div class="panel-body">
+              <div id="area1"></div>
+        </div>
+      </div>
+   </div>
+    </div>
+   
+
+  <div class ="row">    
+
+       <div class="col-md-6 col-sm-6" id ="container1">
+      <div class="panel panel-default">
+       <div class="panel-heading">
+        <i class="fa fa-bar-chart"></i>
+        </div>
+
+        <div class="panel-body">
+              <div id="area3"></div>
+        </div>
+        </div>
+
+      </div>
+    <div class ="col-md-6 col-sm-6">
       <div class="panel panel-default">
        <div class="panel-heading">
                             <i class="fa fa-line-chart"></i>  
@@ -239,46 +250,6 @@ select {
       </div>
       
      </div>
-    </div>
-   
-
-  <div class ="row">    
-
-       <div class="col-md-6 col-sm-6" id ="container1">
-      <div class="panel panel-default">
-       <div class="panel-heading">
-        <i class="fa fa-bar-chart"></i>
-        </div>
-
-        <div class="panel-body">
-              <div id="area3"></div>
-        </div>
-        </div>
-
-      </div>
-
-      <div class ="col-md-6 col-sm-6" >
-       <div class="panel panel-default">
-       <div class="panel-heading">
-                            <i class="fa fa-line-chart"></i> 
-                            <div class="pull-right">
-                               <select id="selectbox1" data-selected="">
-                              <option value="" selected="selected" disabled="disabled">Timespan</option>
-                              <option value="1">1 week</option>
-                              <option value="2">2 weeks</option>
-                              <option value="3">1 month</option>
-                        </select>
-                        <input type="button" class="bouton" OnClick="reset()"value="Reset">
- 
-                            </div>
-        </div>
-
-        <div class="panel-body">
-              <div id="area1"></div>
-        </div>
-      </div>
-   </div>
-
 
   
   </div>
@@ -286,15 +257,8 @@ select {
        
 
 </div>
+ 
 
-  <footer class="footer">This dashborad is brought to you by:<br/> 
-    <a href="https://github.com/electronpower" target="_blank"class="link link--dark" style="font-style:italic;">Khalid Qaceme</a>,
-    <a href="https://github.com/mnemonico" target="_blank"class="link link--dark" style="font-style:italic;">Mohamed Achraf Baiz</a>,
-    <a href="https://github.com/ikbale" target="_blank"class="link link--dark" style="font-style:italic;">Ikbale Maghraoui</a>
-    and <a href="https://github.com/OussamaHOURIRA" target="_blank"class="link link--dark" style="font-style:italic;">Oussama Hourira</a>.
-    <hr/> Don't hesitate to have a look at this project's source code <a href="https://github.com/OussamaHOURIRA/OussamaHOURIRA.github.io" target="_blank"class="link link--dark"><i class="fa fa-github"></i></a><br>
-    And for more details on our project's idea, please refer to this link <a href="https://github.com/OussamaHOURIRA/BithWeen" target="_blank"><i class="fa fa-github"></i></a>
-  </footer>
 
 
   
@@ -412,9 +376,9 @@ const treemap = d3.treemap().size([width, height]);
         .on("change", function () {
         var sect = document.getElementById("selectbox2");
         var section = sect.options[sect.selectedIndex].value;
-        if(section== "1"){choice3=7;svg2.selectAll("*").remove();svg3.selectAll("*").remove(); drawitCommedityNow(); Volatility()}
-        if(section== "2"){choice3=15;svg2.selectAll("*").remove();svg3.selectAll("*").remove(); drawitCommedityNow();Volatility()}
-        if(section== "3"){choice3=30;svg2.selectAll("*").remove();svg3.selectAll("*").remove(); drawitCommedityNow();Volatility()}
+        if(section== "1"){choice3=7;svg2.selectAll("*").remove();svg3.selectAll("*").remove(); drawitCommedityNow(); Volatility();}
+        if(section== "2"){choice3=15;svg2.selectAll("*").remove();svg3.selectAll("*").remove(); drawitCommedityNow();Volatility();}
+        if(section== "3"){choice3=30;svg2.selectAll("*").remove();svg3.selectAll("*").remove(); drawitCommedityNow();Volatility();}
         //if(selectedRadio2== "Reset"){hidecoin="";svg1.selectAll("*").remove();drawit()}
 
         });
@@ -576,7 +540,7 @@ d3.csv("datavr.csv", function(error, data) {
   if (error) throw error;
   var g = svg1.append("g")
           .attr("transform", "translate(0, 0)");
- 
+ console.log("toto");
  symbols=data.columns.splice(1,data.columns.length-6)
  data=data.splice(data.length-choice2,data.length)
 
@@ -727,7 +691,7 @@ d[symbols[j]]=+d[symbols[j]]
   svg1.append("g")
       .attr("transform", "translate(0," +height+ ")")
       .attr("class", "grid")
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(x)); //.ticks(10).tickSize(-height)
 
   // Add the Y Axis
   svg1.append("g")
@@ -763,14 +727,18 @@ var y2 = d3.scaleLinear().range([height, 0]);
 // Get the data
 d3.csv("datav.csv", function(error, data) {
   if (error) throw error;
- symbols2=data.columns.splice(1,data.columns.length)
- var g = svg2.append("g")
+  var g = svg2.append("g")
           .attr("transform", "translate(0, 0)");
+ 
+ symbols2=data.columns.splice(1,data.columns.length)
+ data=data.splice(data.length-choice3,data.length)
+
+ 
   // format the data
   data.forEach(function(d,i) {
       d.Date = parseDate(d.Date);
       //console.log(d[symbols2[i]])//
-      d[symbols2[i]]=+d[symbols2[i]];
+      //d[symbols2[i]]=+d[symbols2[i]];
      
   });
   
@@ -970,9 +938,7 @@ svg3 = d3.select("#area3")
   function Volatility(){
     d3.csv("datav.csv", function(error, data) {
   if (error) throw error;
-      
-   data=data.splice(data.length-choice3,data.length)
-  
+    
     var VolatilityCrypto="";
     var VolatilityCom="";
     var RentabilityCrypto="";
