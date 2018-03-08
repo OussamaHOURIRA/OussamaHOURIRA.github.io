@@ -602,7 +602,7 @@ d3.csv("datavr.csv", function(error, data) {
   if (error) throw error;
   var g = svg1.append("g")
           .attr("transform", "translate(0, 0)");
- console.log("toto");
+
  symbols=data.columns.splice(1,data.columns.length-6)
  data=data.splice(data.length-choice2,data.length)
 
@@ -614,7 +614,7 @@ d3.csv("datavr.csv", function(error, data) {
 
   // Scale the range of the data
   x.domain(d3.extent(data, function(d) { return d.Date; }));
-  y.domain([-40, 40]); //Add something
+  y.domain([-40, 60]); //Add something
   
   // Add the valueline path.
   for(j=0;j<symbols.length;j++){
