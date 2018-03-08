@@ -1031,40 +1031,57 @@ svg3 = d3.select("#area3")
       
       
      }
-      var translateIT=-20;
+     var translateIT=-150;
       var translateITY=100;
+      var translateRect = -20;
+
+      svg3.append("text")
+            .attr("font-size","28px")
+            .attr("x", 350+translateIT)  // space legend
+            .attr("y", 1+translateITY)
+            .style("fill", d3.rgb("#602800"))
+            .text("Volatility");
     
      svg3.append("text")
             .attr("font-size","28px")
             .attr("x", 200+translateIT)  // space legend
             .attr("y", 50+translateITY)
             .style("fill", d3.rgb("#602800"))
-            .text("%RSD : "+hidecoin+" "+VolatilityCrypto);
-
+            .text("%RSD:"+hidecoin+" "+VolatilityCrypto);
      svg3.append("text")
-            .attr("font-size","28px")  
+            .attr("font-size","28px")
             .attr("x", 200+translateIT)  // space legend
             .attr("y", 80+translateITY)
             .style("fill", d3.rgb("#602800"))
             .text("%RSD : "+hideProduct+" "+VolatilityCom); 
+
+
+
+     svg3.append("text")
+          .attr("font-size","28px")
+            .attr("x", 350+translateIT)  // space legend
+            .attr("y", 150+translateITY)
+            .style("fill", d3.rgb("#602800"))
+            .text("Profitability"); 
+      
       svg3.append("text")
             .attr("font-size","28px")
             .attr("x", 200+translateIT)  // space legend
-            .attr("y", 140+translateITY)
+            .attr("y", 200+translateITY)
             .style("fill", d3.rgb("#602800"))
-            .text("%Profitability : "+hidecoin+" "+RentabilityCrypto);
+            .text("%Profitability : "+hidecoin+"    "+RentabilityCrypto);
      svg3.append("text")
-            .attr("font-size","28px")
+             .attr("font-size","28px")
             .attr("x", 200+translateIT)  // space legend
-            .attr("y", 170+translateITY)
+            .attr("y", 230+translateITY)
             .style("fill", d3.rgb("#602800"))
             .text("%Profitability : "+hideProduct+" "+RentabilityCom); 
      svg3.append("rect")
                         .attr("x",function(){  
                           if(VolatilityCrypto<0){
-                                  if(VolatilityCrypto<-100){      return 400+translateIT;  }
-               else {      return 400+(200-2*Math.abs(VolatilityCrypto))+translateIT;  }}
-                     else{ return 600+translateIT;}
+                                  if(VolatilityCrypto<-100){      return 400+translateRect;  }
+               else {      return 400+(200-2*Math.abs(VolatilityCrypto))+translateRect;  }}
+                     else{ return 600+translateRect;}
         
                }
                )
@@ -1093,9 +1110,9 @@ svg3 = d3.select("#area3")
       svg3.append("rect")
              .attr("x",function(){  
                           if(VolatilityCom<0){
-                                  if(VolatilityCom<-100){      return 400+translateIT;  }
-               else {      return 400+(200-2*Math.abs(VolatilityCom))+translateIT;  }}
-                     else{ return 600+translateIT;}
+                                  if(VolatilityCom<-100){      return 400+translateRect;  }
+               else {      return 400+(200-2*Math.abs(VolatilityCom))+translateRect;  }}
+                     else{ return 600+translateRect;}
         
                }
                )
@@ -1124,11 +1141,11 @@ svg3 = d3.select("#area3")
       svg3.append("rect")
              .attr("x",function(){  
              if(RentabilityCrypto<0){
-                                  if(RentabilityCrypto<-100){      return 400+translateIT;  }
-               else {      return 400+(200-2*Math.abs(RentabilityCrypto))+translateIT;  }}
-                     else{ return 600+translateIT;}
+                                  if(RentabilityCrypto<-100){      return 400+translateRect;  }
+               else {      return 400+(200-2*Math.abs(RentabilityCrypto))+translateRect;  }}
+                     else{ return 600+translateRect;}
                })
-             .attr("y",111+translateITY)
+             .attr("y",171+translateITY)
              .attr("width",0)
              .attr("height",25)
              .style("fill","white")
@@ -1156,12 +1173,12 @@ svg3 = d3.select("#area3")
        svg3.append("rect")
             .attr("x",function(){  
              if(RentabilityCom<0){
-              if(RentabilityCom<-100){      return 400+translateIT;  }
-               else {      return 400+(200-2*Math.abs(RentabilityCom))+translateIT;  }
+              if(RentabilityCom<-100){      return 400+translateRect;  }
+               else {      return 400+(200-2*Math.abs(RentabilityCom))+translateRect;  }
              }
-             else{ return 600+translateIT;}} 
+             else{ return 600+translateRect;}} 
                )
-             .attr("y",141+translateITY)
+             .attr("y",211+translateITY)
              .attr("width",0)
              .attr("height",25)
              .style("fill","White")
