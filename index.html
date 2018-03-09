@@ -293,8 +293,9 @@ select {
     <a href="https://github.com/mnemonico" target="_blank"class="link link--dark" style="font-style:italic;">Mohamed Achraf Baiz</a>,
     <a href="https://github.com/ikbale" target="_blank"class="link link--dark" style="font-style:italic;">Ikbale Maghraoui</a>
     and <a href="https://github.com/OussamaHOURIRA" target="_blank"class="link link--dark" style="font-style:italic;">Oussama Hourira</a>.
-    <hr/> Don't hesitate to have a look at this project's source code <a href="https://github.com/OussamaHOURIRA/OussamaHOURIRA.github.io" target="_blank"class="link link--dark"><i class="fa fa-github"></i></a><br>
-    And for more details on our project's idea, please refer to this link <a href="https://github.com/OussamaHOURIRA/BithWeen" target="_blank"><i class="fa fa-github"></i></a>
+    <hr/>This is the project's source code <a href="https://github.com/OussamaHOURIRA/OussamaHOURIRA.github.io" target="_blank"class="link link--dark"><i class="fa fa-github"></i></a><br>
+    For more details on our project's idea, please refer to this github account<a href="https://github.com/OussamaHOURIRA/BithWeen" target="_blank"><i class="fa fa-github"></i></a><br/>
+    Our tutorial on Youtube <a href="https://www.youtube.com/watch?v=uXn2NquIM2A&t=43s" target="_blank"><i class="fa fa-youtube"></i></a>
   </footer>
 
 
@@ -997,7 +998,7 @@ svg3 = d3.select("#area3")
   function Volatility(){
     d3.csv("datav.csv", function(error, data) {
   if (error) throw error;
-    
+     data=data.splice(data.length-choice3,data.length)
     var VolatilityCrypto="";
     var VolatilityCom="";
     var RentabilityCrypto="";
@@ -1178,7 +1179,7 @@ svg3 = d3.select("#area3")
              }
              else{ return 600+translateRect;}} 
                )
-             .attr("y",211+translateITY)
+             .attr("y",201+translateITY)
              .attr("width",0)
              .attr("height",25)
              .style("fill","White")
