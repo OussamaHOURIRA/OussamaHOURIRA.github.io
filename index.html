@@ -318,6 +318,11 @@ var svg2;
 var svg1;
 var svg3;
 var layerColors = d3.scaleOrdinal(d3.schemeCategory10);
+var zoom = d3.zoom().
+    scaleExtent([0.7, 8]).
+    on("zoom", () => {       
+        container.attr("transform", d3.event.transform)                
+    })
 // Define the div for the tooltip
 var divtooltip = d3.select("body").append("div") 
     .attr("class", "tooltiptip")       
@@ -593,7 +598,16 @@ var svg1 = d3.select("#area1")
      .classed("svg-content-responsive", true)
           .append("g")
           .attr("transform", 
-                "translate(" + margin.left+40 + "," + margin.top + ")");
+                "translate(" + margin.left+40 + "," + margin.top + ")")
+          .call(d3.zoom().on("zoom", function () {
+    svg1.attr("transform", d3.event.transform)
+ })).on("contextmenu", function (d, i) {
+            d3.event.preventDefault();
+           // react on right-clicking
+            svg1.attr("transform", "translate("+ margin.left+40 + "," + margin.top +") ");
+            
+
+        });
 
     function drawit(){
 
@@ -750,7 +764,7 @@ d[symbols[j]]=+d[symbols[j]]
       .attr("x",0 - (height/2) -40)
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Value in %");  
+      .text("Percentage");  
      
   
 }}
@@ -789,7 +803,16 @@ var y2 = d3.scaleLinear().range([height, 0]);
      .classed("svg-content-responsive", true)
           .append("g")
           .attr("transform", 
-                "translate(" + margin.left+40 + "," + margin.top + ")");
+                "translate(" + margin.left+40 + "," + margin.top + ")")
+                .call(d3.zoom().on("zoom", function () {
+    svg2.attr("transform", d3.event.transform)
+ })).on("contextmenu", function (d, i) {
+            d3.event.preventDefault();
+           // react on right-clicking
+            svg2.attr("transform", "translate("+ margin.left+40 + "," + margin.top +") ");
+            
+
+        });
 
     
     function drawitCommedityNow(){
