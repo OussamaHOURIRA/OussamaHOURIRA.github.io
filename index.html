@@ -178,7 +178,7 @@ select {
   <div class ="container-fluid">
         <div class="row">
         <div class="col-sm-6">
-          <h1><i class="fa fa-bitcoin">ithween</i><p class="lead">A cryptocurrencies visualization platform</p></h1>
+          <h1><i class="fa fa-bitcoin">ithween</i><p class="lead">A cryptocurrency visualization platform</p></h1>
         </div>
         <div class="col-sm-6">
         <div class="pull-right hidden-sm">    
@@ -193,7 +193,7 @@ select {
       <div class="col-md-6 col-sm-6">
       <div class="panel panel-default">
        <div class="panel-heading">
-                            <i class="fa fa-sitemap"></i> 
+                            <i class="fa fa-sitemap"></i> Treemap - Cryptocurrencies's Capitalization
                             <div class="pull-right">
                                 <select id="selectbox" data-selected="">
                                 <option value="" selected="selected" disabled="disabled">Timespan</option>
@@ -213,7 +213,7 @@ select {
     <div class ="col-md-6 col-sm-6" >
        <div class="panel panel-default">
        <div class="panel-heading">
-                            <i class="fa fa-line-chart"></i> 
+                            <i class="fa fa-line-chart"></i> Daily Profitability 
                             <div class="pull-right">
                                <select id="selectbox1" data-selected="">
                               <option value="" selected="selected" disabled="disabled">Timespan</option>
@@ -239,7 +239,7 @@ select {
        <div class="col-md-6 col-sm-6" id ="container1">
       <div class="panel panel-default">
        <div class="panel-heading">
-        <i class="fa fa-bar-chart"></i>
+        <i class="fa fa-bar-chart"></i> Profitability - Volatility KPI
         </div>
 
         <div class="panel-body">
@@ -251,7 +251,7 @@ select {
     <div class ="col-md-6 col-sm-6">
       <div class="panel panel-default">
        <div class="panel-heading">
-                            <i class="fa fa-line-chart"></i>  
+                            <i class="fa fa-line-chart"></i> Evolution of Crypto / Commodities 
                             <div class="pull-right">
                                <select id="selectbox2" data-selected="">
                             <option value="" selected="selected" disabled="disabled">Timespan</option>
@@ -595,7 +595,6 @@ var svg1 = d3.select("#area1")
           .attr("transform", 
                 "translate(" + margin.left+40 + "," + margin.top + ")");
 
-
     function drawit(){
 
 // Get the data
@@ -737,6 +736,21 @@ d[symbols[j]]=+d[symbols[j]]
 
               })
             .text(symbols[j]);
+
+     svg1.append("text")             
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height+50) + ")")
+      .style("text-anchor", "middle")
+      .text("Date");
+
+     svg1.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - 35)
+      .attr("x",0 - (height/2) -40)
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Value in %");  
      
   
 }}
@@ -776,6 +790,7 @@ var y2 = d3.scaleLinear().range([height, 0]);
           .append("g")
           .attr("transform", 
                 "translate(" + margin.left+40 + "," + margin.top + ")");
+
     
     function drawitCommedityNow(){
 // Get the data
@@ -956,6 +971,22 @@ d3.csv("datav.csv", function(error, data) {
   svg2.append("g")
       .call(d3.axisLeft(y2));
 
+  svg2.append("text")             
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height+50) + ")")
+      .style("text-anchor", "middle")
+      .text("Date");
+
+     svg2.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 +width)
+      .attr("x",0 - (height/2) -35)
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Value in USD");  
+     
+
 });
 }
 function sumByCount(d) {
@@ -1048,7 +1079,7 @@ svg3 = d3.select("#area3")
             .attr("x", 200+translateIT)  // space legend
             .attr("y", 50+translateITY)
             .style("fill", d3.rgb("#602800"))
-            .text("%RSD:"+hidecoin+" "+VolatilityCrypto);
+            .text("%RSD : "+hidecoin+" "+VolatilityCrypto);
      svg3.append("text")
             .attr("font-size","28px")
             .attr("x", 200+translateIT)  // space legend
